@@ -1,6 +1,3 @@
-require "mlb_stats/version"
+require_relative "mlb_stats/version"
+require_relative "mlb_stats/cli"
 
-module MlbStats
-  class Error < StandardError; end
-  # Your code goes here...
-end
