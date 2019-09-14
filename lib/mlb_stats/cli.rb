@@ -11,7 +11,7 @@ class MlbStats::CLI
   def list_stats
     puts "Which stat would you like to see?"
     puts """
-      1) Schedule
+      1) League Leaders
       2) Standings
       3) Teams
       """
@@ -24,7 +24,7 @@ class MlbStats::CLI
       input = gets.strip.downcase
       case input
       when "1"
-        puts "more info on schedule"
+        league_leader_list
       when "2"
         puts MlbStats::Scraper.teams
         
@@ -39,5 +39,44 @@ class MlbStats::CLI
   
   def goodbye
     puts "Thank you for using MLB Stats!"
+  end
+  
+    def league_leader_list
+    puts "Which stat would you like to see the league leaders for?"
+    puts """
+      1) Batting Average
+      2) Home Runs
+      3) Runs Batted In
+      4) Earned Run Average
+      5) Strike Outs
+      6) Saves
+      """
+      league_leader_menu
+  end
+  
+  def league_leader_menu
+    puts "Please select the number next to your desired option, type list to see the menu again, or type exit:"
+    input = nil
+    while input != "exit"
+      input = gets.strip.downcase
+      case input
+      when "1"
+        puts "League Leaders in Batting Average:"
+      when "2"
+        puts "League Leaders in Home Runs:"
+      when "3"
+        puts "League Leaders in RBIs:"
+      when "4"
+        puts "League Leaders in ERA:"
+      when "5"
+        puts "League Leaders in Strike Outs:"
+      when "6"
+        puts "League Leaders in Saves:"
+      when "menu"
+        league_leader_list
+      when "main menu"
+        call
+      end
+    end
   end
 end

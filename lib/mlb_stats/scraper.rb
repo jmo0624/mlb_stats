@@ -4,6 +4,7 @@ class MlbStats::Scraper
     if input == "standings"
       @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/standings/_/group/overall"))
     end
+
   end
   
   def self.stats
@@ -26,6 +27,8 @@ class MlbStats::Scraper
     end
     @teams.reject! {|x| x.empty? }
   end
-    
+  
+  def self.get_avg(doc)
+  end
   
 end
