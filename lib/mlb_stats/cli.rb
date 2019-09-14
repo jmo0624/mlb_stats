@@ -1,3 +1,4 @@
+require 'pry'
 class MlbStats::CLI
   
   def call
@@ -25,7 +26,9 @@ class MlbStats::CLI
       when "1"
         puts "more info on schedule"
       when "2"
-        puts "more info on standings"
+        puts MlbStats::Scraper.teams
+        
+       # binding.pry
       when "3"
         puts "more info on teams"
       when "list"
