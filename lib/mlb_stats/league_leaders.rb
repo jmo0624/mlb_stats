@@ -4,7 +4,7 @@ class MlbStats::LeagueLeaders
   
   @@all = []
   
-  def intialize(params)
+  def initialize(params)
     @name ||= params[0]
     @avg ||= params[1][0]
     @hr ||= params[1][1]
@@ -22,4 +22,4 @@ class MlbStats::LeagueLeaders
 end
   
   
-    
+  #my-players-table > div > div.mod-content > table > tbody > tr.oddrow.player-10-32098 > td:nth-child(2) > a  

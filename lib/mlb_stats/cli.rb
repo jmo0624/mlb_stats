@@ -1,4 +1,4 @@
-require 'pry'
+#require 'pry'
 class MlbStats::CLI
   
   def call
@@ -41,7 +41,7 @@ class MlbStats::CLI
     puts "Thank you for using MLB Stats!"
   end
   
-    def league_leader_list
+  def league_leader_list
     puts "Which stat would you like to see the league leaders for?"
     puts """
       1) Batting Average
@@ -62,6 +62,7 @@ class MlbStats::CLI
       case input
       when "1"
         puts "League Leaders in Batting Average:"
+        puts MlbStats::Scraper.league_leaders
       when "2"
         puts "League Leaders in Home Runs:"
       when "3"
