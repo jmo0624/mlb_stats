@@ -48,7 +48,7 @@ class MlbStats::CLI
       2) Home Runs
       3) Runs Batted In
       4) Earned Run Average
-      5) Strike Outs
+      5) Strikeouts
       6) Saves
       """
       league_leader_menu
@@ -62,17 +62,22 @@ class MlbStats::CLI
       case input
       when "1"
         puts "League Leaders in Batting Average:"
-        puts MlbStats::Scraper.league_leaders
+        puts MlbStats::Scraper.batting_average
       when "2"
         puts "League Leaders in Home Runs:"
+        puts MlbStats::Scraper.home_runs
       when "3"
         puts "League Leaders in RBIs:"
+        puts MlbStats::Scraper.rbi
       when "4"
         puts "League Leaders in ERA:"
+        puts MlbStats::Scraper.era
       when "5"
         puts "League Leaders in Strike Outs:"
+        puts MlbStats::Scraper.strikeout
       when "6"
         puts "League Leaders in Saves:"
+        puts MlbStats::Scraper.saves
       when "menu"
         league_leader_list
       when "main menu"
