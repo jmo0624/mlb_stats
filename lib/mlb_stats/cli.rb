@@ -1,4 +1,4 @@
-#require 'pry'
+require 'pry'
 class MlbStats::CLI
   
   def call
@@ -48,8 +48,6 @@ class MlbStats::CLI
       2) Home Runs
       3) Runs Batted In
       4) Earned Run Average
-      5) Strikeouts
-      6) Saves
       """
       league_leader_menu
   end
@@ -72,12 +70,6 @@ class MlbStats::CLI
       when "4"
         puts "League Leaders in ERA:"
         puts MlbStats::Scraper.era
-      when "5"
-        puts "League Leaders in Strike Outs:"
-        puts MlbStats::Scraper.strikeout
-      when "6"
-        puts "League Leaders in Saves:"
-        puts MlbStats::Scraper.saves
       when "menu"
         league_leader_list
       when "main menu"

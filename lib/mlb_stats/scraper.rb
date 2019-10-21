@@ -11,10 +11,10 @@ class MlbStats::Scraper
       @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/batting/_/seasontype/2/sort/RBIs/order/true"))
     elsif input == "earned run average"
       @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/pitching/_/seasontype/2/order/false"))
-    elsif input == "strikeouts"
-      @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/pitching/_/seasontype/2/sort/strikeouts/order/true"))
-    elsif input == "saves"
-      @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/pitching/_/seasontype/2/sort/saves/order/true"))
+    #elsif input == "strikeouts"
+      #@doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/pitching/_/seasontype/2/sort/strikeouts"))
+    #elsif input == "saves"
+     # @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/pitching/_/seasontype/2/sort/saves/order/true"))
     end
 
   end
@@ -26,8 +26,6 @@ class MlbStats::Scraper
     stats[:home_runs] = self.get_hr(get_page("home runs"))
     stats[:rbi] = self.get_rbi(get_page("runs batted in"))
     stats[:era] = self.get_era(get_page("earned run average"))
-    stats[:strikeout] = self.get_strikeout("strikeouts")
-    stats[:saves] = self.get_saves("saves")
     stats
   end
   
@@ -66,19 +64,7 @@ class MlbStats::Scraper
     end
   end
   
-  def self.strikeout
-    MlbStats::LeagueLeaders.all.clear
-    stats[:strikeout] do |player|
-      MlbStats::LeagueLeaders.new(player)
-    end
-  end
-  
-  def self.saves
-    MlbStats::LeagueLeaders.all.clear
-    stats[:saves] do |player|
-      MlbStats::LeagueLeaders.new(player)
-    end
-  end
+
   
   def self.get_teams(doc)
     @teams = []
@@ -120,20 +106,6 @@ class MlbStats::Scraper
     @era.reject! {|x| x.empty?}
   end
   
-  def self.get_strikeout(doc)
-    @so = []
-    doc.search('tr[align="right"]').each do |x|
-      @so << x.css('td[align="left"] a').text
-    end
-    @so.reject! {|x| x.empty?}
-  end
-  
-  def self.get_saves(doc)
-    @saves = []
-    doc.search('tr[align="right"]').each do |x|
-      @saves << x.css('td[align="left"] a').text
-    end
-    @saves.reject! {|x| x.empty?}
-  end
+
   
 end
