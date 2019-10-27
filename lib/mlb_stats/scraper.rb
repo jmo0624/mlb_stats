@@ -31,7 +31,7 @@ class MlbStats::Scraper
   
   def self.teams
     MlbStats::Teams.all.clear
-    stats[:standings] do |team|
+    stats[:standings].each do |team|
       MlbStats::Teams.new(team)
     end
   end

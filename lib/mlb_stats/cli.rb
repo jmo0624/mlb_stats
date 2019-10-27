@@ -26,7 +26,8 @@ class MlbStats::CLI
       when "1"
         league_leader_list
       when "2"
-        puts MlbStats::Scraper.teams
+        puts "\n"
+        puts MlbStats::Scraper.teams.each.with_index(1).to_a
         
        # binding.pry
       when "3"
@@ -60,16 +61,20 @@ class MlbStats::CLI
       case input
       when "1"
         puts "League Leaders in Batting Average:"
-        puts MlbStats::Scraper.batting_average
+        puts "\n"
+        puts MlbStats::Scraper.batting_average.each.with_index(1).to_a
       when "2"
         puts "League Leaders in Home Runs:"
-        puts MlbStats::Scraper.home_runs
+        puts "\n"
+        puts MlbStats::Scraper.home_runs.each.with_index(1).to_a
       when "3"
         puts "League Leaders in RBIs:"
-        puts MlbStats::Scraper.rbi
+        puts "\n"
+        puts MlbStats::Scraper.rbi.each.with_index(1).to_a
       when "4"
         puts "League Leaders in ERA:"
-        puts MlbStats::Scraper.era
+        puts "\n"
+        puts MlbStats::Scraper.era.each.with_index(1).to_a
       when "menu"
         league_leader_list
       when "main menu"
