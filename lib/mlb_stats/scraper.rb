@@ -22,10 +22,10 @@ class MlbStats::Scraper
   def self.stats
     stats = {}
     stats[:standings] = self.get_teams(get_page("standings"))
-    stats[:batting_average] = self.get_avg(get_page("batting average"))
-    stats[:home_runs] = self.get_hr(get_page("home runs"))
-    stats[:rbi] = self.get_rbi(get_page("runs batted in"))
-    stats[:era] = self.get_era(get_page("earned run average"))
+    stats[:batting_average] = self.get_stats(get_page("batting average"))
+    stats[:home_runs] = self.get_stats(get_page("home runs"))
+    stats[:rbi] = self.get_stats(get_page("runs batted in"))
+    stats[:era] = self.get_stats(get_page("earned run average"))
     stats
   end
   
@@ -74,38 +74,13 @@ class MlbStats::Scraper
     @teams.reject! {|x| x.empty? }
   end
   
-  def self.get_avg(doc)
-    @avg = []
+  def self.get_stats(doc)
+    @stats = []
     doc.search('tr[align="right"]').each do |x|
-      @avg << x.css('td[align="left"] a').text
+      @stats << x.css('td[align="left"] a').text
     end
-    @avg.reject! {|x| x.empty?}
+    @stats.reject! {|x| x.empty?}
   end
   
-  def self.get_hr(doc)
-    @hr = []
-    doc.search('tr[align="right"]').each do |x|
-      @hr << x.css('td[align="left"] a').text
-    end
-    @hr.reject! {|x| x.empty?}
-  end
-  
-  def self.get_rbi(doc)
-    @rbi = []
-    doc.search('tr[align="right"]').each do |x|
-      @rbi << x.css('td[align="left"] a').text
-    end
-    @rbi.reject! {|x| x.empty?}
-  end
-  
-  def self.get_era(doc)
-    @era = []
-    doc.search('tr[align="right"]').each do |x|
-      @era << x.css('td[align="left"] a').text
-    end
-    @era.reject! {|x| x.empty?}
-  end
-  
-
   
 end
