@@ -30,37 +30,54 @@ class MlbStats::Scraper
   end
   
   def self.teams
+    index = 0
     MlbStats::Teams.all.clear
     stats[:standings].each do |team|
       MlbStats::Teams.new(team)
+      puts " #{index + 1}. #{team}"
+      index += 1
     end
   end
   
   def self.batting_average
+    index = 0
+    doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/batting/_/year/2019/seasontype/2"))
+    stat_amount = doc.css('td[align="right"].sortcell' ).text
     MlbStats::LeagueLeaders.all.clear
-    stats[:batting_average] do |player|
+    stats[:batting_average].each do |player|
       MlbStats::LeagueLeaders.new(player)
+      puts " #{index + 1}. #{player}."+"#{stat_amount}"
+      index += 1
     end
   end
   
   def self.home_runs
+    index = 0
     MlbStats::LeagueLeaders.all.clear
-    stats[:home_runs] do |player|
+    stats[:home_runs].each do |player|
       MlbStats::LeagueLeaders.new(player)
+      puts " #{index + 1}. #{player}. "
+      index += 1
     end
   end
   
   def self.rbi
+    index = 0
     MlbStats::LeagueLeaders.all.clear
-    stats[:rbi] do |player|
+    stats[:rbi].each do |player|
       MlbStats::LeagueLeaders.new(player)
+      puts " #{index + 1}. #{player}. "
+      index += 1
     end
   end
   
   def self.era
+    index = 0
     MlbStats::LeagueLeaders.all.clear
-    stats[:era] do |player|
+    stats[:era].each do |player|
       MlbStats::LeagueLeaders.new(player)
+      puts " #{index + 1}. #{player}. "
+      index += 1
     end
   end
   
@@ -75,12 +92,19 @@ class MlbStats::Scraper
   end
   
   def self.get_stats(doc)
+    #@players = []
     @stats = []
     doc.search('tr[align="right"]').each do |x|
-      @stats << x.css('td[align="left"] a').text
+      @player = x.css('td[align="left"] a').text
+      #@stat_amount = x.css('td[align="right"].sortcell' ).text
+      @stats << @player
+      #"#{@players.concat(@stats)}"
     end
     @stats.reject! {|x| x.empty?}
   end
   
   
+  
 end
+
+#'td[align="right"].sortcell'
