@@ -11,10 +11,6 @@ class MlbStats::Scraper
       @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/batting/_/seasontype/2/sort/RBIs/order/true"))
     elsif input == "earned run average"
       @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/pitching/_/seasontype/2/order/false"))
-    #elsif input == "strikeouts"
-      #@doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/pitching/_/seasontype/2/sort/strikeouts"))
-    #elsif input == "saves"
-     # @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/pitching/_/seasontype/2/sort/saves/order/true"))
     end
 
   end
@@ -42,19 +38,21 @@ class MlbStats::Scraper
   def self.batting_average
     index = 0
     MlbStats::LeagueLeaders.all.clear
-    stats[:batting_average].each do |player|
-      MlbStats::LeagueLeaders.new(player)
-      puts " #{index + 1}. #{player}."
-      index += 1
+    stats[:batting_average].each_slice(2) do |player, stat_amount|
+      MlbStats::LeagueLeaders.new(player, stat_amount)
+    
+    puts "#{index + 1}. #{player}..........  #{stat_amount}"
+    index += 1
     end
+    
   end
   
   def self.home_runs
     index = 0
     MlbStats::LeagueLeaders.all.clear
-    stats[:home_runs].each do |player|
-      MlbStats::LeagueLeaders.new(player)
-      puts " #{index + 1}. #{player}. "
+    stats[:home_runs].each_slice(2) do |player, stat_amount|
+      MlbStats::LeagueLeaders.new(player, stat_amount)
+      puts " #{index + 1}. #{player}..........#{stat_amount} "
       index += 1
     end
   end
@@ -62,9 +60,9 @@ class MlbStats::Scraper
   def self.rbi
     index = 0
     MlbStats::LeagueLeaders.all.clear
-    stats[:rbi].each do |player|
-      MlbStats::LeagueLeaders.new(player)
-      puts " #{index + 1}. #{player}. "
+    stats[:rbi].each_slice(2) do |player, stat_amount|
+      MlbStats::LeagueLeaders.new(player, stat_amount)
+      puts " #{index + 1}. #{player}...........#{stat_amount}"
       index += 1
     end
   end
@@ -72,9 +70,9 @@ class MlbStats::Scraper
   def self.era
     index = 0
     MlbStats::LeagueLeaders.all.clear
-    stats[:era].each do |player|
-      MlbStats::LeagueLeaders.new(player)
-      puts " #{index + 1}. #{player}. "
+    stats[:era].each_slice(2) do |player, stat_amount|
+      MlbStats::LeagueLeaders.new(player, stat_amount)
+      puts " #{index + 1}. #{player}..........#{stat_amount} "
       index += 1
     end
   end
@@ -90,19 +88,20 @@ class MlbStats::Scraper
   end
   
   def self.get_stats(doc)
-    #@players = []
-    @stats = []
+    
+    @players = []
     doc.search('tr[align="right"]').each do |x|
       @player = x.css('td[align="left"] a').text
-      #@stat_amount = x.css('td[align="right"].sortcell' ).text
-      @stats << @player
-      #"#{@players.concat(@stats)}"
+      @stat_amount = x.css('td[align="right"].sortcell' ).text
+      @players << @player
+      @players << @stat_amount
+      
     end
-    @stats.reject! {|x| x.empty?}
+    @players.reject! {|x| x.empty?}
+    
   end
-  
   
   
 end
 
-#'td[align="right"].sortcell'
+
