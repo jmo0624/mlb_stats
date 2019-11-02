@@ -13,7 +13,6 @@ class MlbStats::CLI
     puts """
       1) League Leaders
       2) Standings
-      3) Teams
       """
   end
   

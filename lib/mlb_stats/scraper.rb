@@ -41,12 +41,10 @@ class MlbStats::Scraper
   
   def self.batting_average
     index = 0
-    doc = Nokogiri::HTML(open("http://www.espn.com/mlb/stats/batting/_/year/2019/seasontype/2"))
-    stat_amount = doc.css('td[align="right"].sortcell' ).text
     MlbStats::LeagueLeaders.all.clear
     stats[:batting_average].each do |player|
       MlbStats::LeagueLeaders.new(player)
-      puts " #{index + 1}. #{player}."+"#{stat_amount}"
+      puts " #{index + 1}. #{player}."
       index += 1
     end
   end
