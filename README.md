@@ -20,7 +20,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Select option 1 to view the league leader stats.
+    -In the league leader menu, choose an option from 1-4 to view the leaders for that stat.
+    -Type menu to see the league leader menu again
+    -Type main menu to return to the main menu
+    
+Select option 2 to view the league standings
+
+Type exit to exit the gem
 
 ## Development
 
