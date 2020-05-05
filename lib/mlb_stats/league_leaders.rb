@@ -1,7 +1,6 @@
 class MlbStats::LeagueLeaders
   
-  attr_accessor :name, :avg, :hr, :rbi, :era, :so, :saves
-  
+  attr_accessor :name, :avg, :hr, :rbi, :era
   @@all = []
   
   def initialize(params, stat_amount)

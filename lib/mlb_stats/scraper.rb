@@ -1,6 +1,6 @@
 class MlbStats::Scraper
   
-  def self.get_page(input)
+  def self.get_page(input)         #set doc to different webpage depending on the user input
     if input == "standings"
       @doc = Nokogiri::HTML(open("http://www.espn.com/mlb/standings/_/group/overall"))
     elsif input == "batting average"
@@ -25,12 +25,12 @@ class MlbStats::Scraper
     stats
   end
   
-  def self.teams
+  def self.teams          #iterate through the teams and list them in order
     index = 0
     MlbStats::Teams.all.clear
     stats[:standings].each do |team|
       MlbStats::Teams.new(team)
-      puts " #{index + 1}. #{team}"
+      puts " #{index + 1}. #{team}"       #displays the list number nect to the stat
       index += 1
     end
   end
@@ -38,7 +38,7 @@ class MlbStats::Scraper
   def self.batting_average
     index = 0
     MlbStats::LeagueLeaders.all.clear
-    stats[:batting_average].each_slice(2) do |player, stat_amount|
+    stats[:batting_average].each_slice(2) do |player, stat_amount|    #display the player name                                                                     and stat amount on the                                                                       same line
       MlbStats::LeagueLeaders.new(player, stat_amount)
     
     puts "#{index + 1}. #{player}..........  #{stat_amount}"
@@ -79,7 +79,7 @@ class MlbStats::Scraper
   
 
   
-  def self.get_teams(doc)
+  def self.get_teams(doc)           #scraper to get teams
     @teams = []
     doc.search("td.Table__TD").each do |x|
       @teams << x.css("span.hide-mobile a").text
@@ -87,7 +87,7 @@ class MlbStats::Scraper
     @teams.reject! {|x| x.empty? }
   end
   
-  def self.get_stats(doc)
+  def self.get_stats(doc)     #scraper to get player and stat amounts
     
     @players = []
     doc.search('tr[align="right"]').each do |x|
